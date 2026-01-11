@@ -1,0 +1,18 @@
+#!/bin/bash
+if [ $? -eq 0 ]; then
+    echo "Apache server is running."
+else
+    echo "Apache server is stopped."
+    echo "Attempting to restart Apache..."
+
+    systemctl restart $SERVICE
+
+    # Verify restart
+    systemctl is-active --quiet $SERVICE
+    if [ $? -eq 0 ]; then
+        echo "Apache restarted successfully."
+    else
+        echo "Failed to restart Apache. Please check logs."
+    fi
+fi
+
